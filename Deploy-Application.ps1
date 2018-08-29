@@ -63,15 +63,15 @@ Try {
 	##* VARIABLE DECLARATION
 	##*===============================================
 	## Variables: Application
-	[string]$appVendor = ''
-	[string]$appName = ''
-	[string]$appVersion = ''
-	[string]$appArch = ''
+	[string]$appVendor = 'Sabre Travel Network'
+	[string]$appName = 'Sabre Red Workspace'
+	[string]$appVersion = '2.15.4'
+	[string]$appArch = 'x86'
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
 	[string]$appScriptVersion = '3.7.0.1'
-	[string]$appScriptDate = '03/22/2018'
-	[string]$appScriptAuthor = '<author name>'
+	[string]$appScriptDate = '08/29/2018'
+	[string]$appScriptAuthor = 'tnguy189'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = ''
@@ -119,13 +119,14 @@ Try {
 		[string]$installPhase = 'Pre-Installation'
 
 		## Show Welcome Message, close Internet Explorer if needed, verify there is enough disk space to complete the install, and persist the prompt
-		Show-InstallationWelcome -CloseApps 'iexplore' -CheckDiskSpace -PersistPrompt
+		Show-InstallationWelcome -CloseApps 'mysabre' -CheckDiskSpace -PersistPrompt
 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
 
 		## <Perform Pre-Installation tasks here>
-
+		## Remove any existing C:\Sabre Red Workspace folder
+		Remove-Folder -Path "C:\Sabre Red Workspace"
 
 		##*===============================================
 		##* INSTALLATION
@@ -139,7 +140,10 @@ Try {
 		}
 
 		## <Perform Installation tasks here>
-
+		## Create "C:\Sabre Red Workspace" folder
+		New-Folder -Path "C:\Sabre Red Workspace"
+		## Copy Sabre Red Workspace
+		Copy-File -Path "$dirFiles\*.*" -Destination "C:\Sabre Red Workspace" -Recurse
 
 		##*===============================================
 		##* POST-INSTALLATION
@@ -147,6 +151,8 @@ Try {
 		[string]$installPhase = 'Post-Installation'
 
 		## <Perform Post-Installation tasks here>
+		## Add Sabre Red Workspace to Start Menu
+		Copy-File -Path "C:\Sabre Red Workspace\Profiles\84JF_1401\mysabre.exe" -Destination "C:\ProgramData\Microsoft\Windows\Start Menu\Sabre Red Workspace.exe"
 
 		## Display a message at the end of the install
 		If (-not $useDefaultMsi) {
@@ -161,7 +167,7 @@ Try {
 		[string]$installPhase = 'Pre-Uninstallation'
 
 		## Show Welcome Message, close Internet Explorer with a 60 second countdown before automatically closing
-		Show-InstallationWelcome -CloseApps 'iexplore' -CloseAppsCountdown 60
+		Show-InstallationWelcome -CloseApps 'mysabre' -CloseAppsCountdown 60
 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
@@ -189,7 +195,9 @@ Try {
 		[string]$installPhase = 'Post-Uninstallation'
 
 		## <Perform Post-Uninstallation tasks here>
-
+		## Delete Sabre Red Workspace
+		Remove-Folder -Path "C:\Sabre Red Workspace"
+		Remove-File -Path "C:\ProgramData\Microsoft\Windows\Start Menu\Sabre Red Workspace.exe"
 
 	}
 
