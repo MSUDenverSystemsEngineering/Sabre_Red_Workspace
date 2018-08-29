@@ -143,7 +143,7 @@ Try {
 		## Create "C:\Sabre Red Workspace" folder
 		New-Folder -Path "C:\Sabre Red Workspace"
 		## Copy Sabre Red Workspace
-		Copy-File -Path "$dirFiles\*.*" -Destination "C:\Sabre Red Workspace" -Recurse
+		Copy-File -Path "$dirFiles\Sabre Red Workspace" -Destination "C:" -Recurse
 
 		##*===============================================
 		##* POST-INSTALLATION
