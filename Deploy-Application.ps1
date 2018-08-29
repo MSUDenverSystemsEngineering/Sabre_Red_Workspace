@@ -143,7 +143,7 @@ Try {
 		## Create "C:\Sabre Red Workspace" folder
 		New-Folder -Path "C:\Sabre Red Workspace"
 		## Copy Sabre Red Workspace
-		robocopy.exe "$dirFiles\Sabre Red Workspace" "C:\Sabre Red Workspace" *.* /E
+		Execute-Process -Path "C:\Windows\System32\Robocopy.exe" -Parameters "`"$dirFiles\Sabre Red Workspace`" `"C:\Sabre Red Workspace`" *.* /E"
 
 		##*===============================================
 		##* POST-INSTALLATION
@@ -151,8 +151,8 @@ Try {
 		[string]$installPhase = 'Post-Installation'
 
 		## <Perform Post-Installation tasks here>
-		## Add Sabre Red Workspace to Start Menu
-		Copy-File -Path "C:\Sabre Red Workspace\Profiles\84JF_1401\mysabre.exe" -Destination "C:\ProgramData\Microsoft\Windows\Start Menu\Sabre Red Workspace.exe"
+		## Add Sabre Red Workspace shortcut to Start Menu
+		New-Shortcut -Path "C:\ProgramData\Microsoft\Windows\Start Menu\Sabre Red Workspace.lnk" -TargetPath "C:\Sabre Red Workspace\Profiles\84JF_1401\mysabre.exe" -IconLocation "C:\Sabre Red Workspace\Profiles\84JF_1401\mysabre.exe" -Description "Sabre Red Workspace"
 
 		## Display a message at the end of the install
 		If (-not $useDefaultMsi) {
