@@ -143,7 +143,9 @@ Try {
 		## Create "C:\Sabre Red Workspace" folder
 		New-Folder -Path "C:\Sabre Red Workspace"
 		## Copy Sabre Red Workspace, ignore robocopy exitcode 1 - One of more files were copied successfully.
-		Execute-Process -Path "C:\Windows\System32\Robocopy.exe" -Parameters "`"$dirFiles\Sabre Red Workspace`" `"C:\Sabre Red Workspace`" *.* /E" -IgnoreExitCodes '1'
+		##Execute-Process -Path "C:\Windows\System32\Robocopy.exe" -Parameters "`"$dirFiles\Sabre Red Workspace`" `"C:\Sabre Red Workspace`" *.* /E" -IgnoreExitCodes '1'
+		## Extract Sabre ZIP to C:
+		Expand-Archive -Path "$dirFiles\Sabre Red Workspace.zip" -DestinationPath "C:\" -Force
 
 		##*===============================================
 		##* POST-INSTALLATION
